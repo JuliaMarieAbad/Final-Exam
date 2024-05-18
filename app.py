@@ -6,6 +6,8 @@ import numpy as np
 from PIL import Image
 import gdown
 
+st.title("PC Parts Classifier")
+
 model_url = 'https://drive.google.com/uc?id=1iAKwCgUYNH4nXpgI88rvaGudMsD180Sq'
 model_path = 'pc_parts_classifier.h5'
 
