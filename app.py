@@ -38,3 +38,5 @@ if uploaded_file is not None:
     st.write("Classifying...")
     label = predict(image)
     st.write(f"Prediction: {label}")
+
+st.markdown('<style>body{background-color: pink;}</style>', unsafe_allow_html=True)
