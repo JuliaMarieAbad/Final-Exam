@@ -6,10 +6,8 @@ import numpy as np
 from PIL import Image
 import gdown
 
-file_id = '1iAKwCgUYNH4nXpgI88rvaGudMsD180Sq'
-model_url = f'https://drive.google.com/file/d/1iAKwCgUYNH4nXpgI88rvaGudMsD180Sq/view?usp=drive_link'
+model_url = 'https://drive.google.com/uc?id=1iAKwCgUYNH4nXpgI88rvaGudMsD180Sq'
 model_path = 'pc_parts_classifier.h5'
-
 
 @st.cache(allow_output_mutation=True)
 def load_model():
