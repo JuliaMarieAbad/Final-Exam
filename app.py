@@ -1,0 +1,40 @@
+
+import streamlit as st
+import tensorflow as tf
+from tensorflow.keras.preprocessing.image import img_to_array
+import numpy as np
+from PIL import Image
+import gdown
+
+file_id = '1iAKwCgUYNH4nXpgI88rvaGudMsD180Sq'
+model_url = f'https://drive.google.com/file/d/1iAKwCgUYNH4nXpgI88rvaGudMsD180Sq/view?usp=drive_link'
+model_path = 'pc_parts_classifier.h5'
+
+
+@st.cache(allow_output_mutation=True)
+def load_model():
+    gdown.download(model_url, model_path, quiet=False)
+    model = tf.keras.models.load_model(model_path)
+    return model
+
+model = load_model()
+
+class_names = ['mouse', 'headset', 'webcam', 'ram', 'monitor', 'speakers', 'motherboard', 'keyboard', 'microphone', 'hdd', 'cables', 'gpu', 'cpu', 'case']
+
+def predict(image):
+    image = image.resize((256, 256))
+    image = img_to_array(image) / 255.0
+    image = np.expand_dims(image, axis=0)
+    prediction = model.predict(image)
+    predicted_class = class_names[np.argmax(prediction)]
+    return predicted_class
+
+uploaded_file = st.file_uploader("Please choose an image: ", type="jpg")
+
+if uploaded_file is not None:
+    image = Image.open(uploaded_file)
+    st.image(image, caption='Uploaded Image.', use_column_width=True)
+    st.write("")
+    st.write("Classifying...")
+    label = predict(image)
+    st.write(f"Prediction: {label}")
